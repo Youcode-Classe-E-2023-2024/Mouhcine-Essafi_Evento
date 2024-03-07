@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard/categories/stroe', [CategoryController::class, 'store'])->name('category.store');
     Route::delete('/dashboard/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });
+
+Route::get('/formEvent', [EventController::class, 'showForm'])->name('formEvent');
+Route::get('/evento', [EventController::class, 'AllEvents'])->name('evento');
+Route::post('/evento', [EventController::class, 'store'])->name('addEvent');
 
 // Profile routes
 Route::middleware(['auth'])->group(function () {

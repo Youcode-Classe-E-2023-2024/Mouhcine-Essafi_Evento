@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
+            $table->string('slug')->unique();
             $table->string('location');
             $table->date('date');
             $table->time('time');
@@ -23,7 +24,8 @@ return new class extends Migration
             $table->enum('reservation_type', ['auto', 'manuel']);
             $table->string('image');
             $table->unsignedBigInteger('creator');
-            $table->integer('category_id');
+            $table->string('category');
+            $table->enum('status' , ['active','inactive'])->default('active');
 
             $table->foreign('creator')->references('id')->on('users')->onDelete('cascade');
 

@@ -7,6 +7,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -49,7 +50,7 @@ class EventController extends Controller
             'description' => 'required',
             'reservation_type' => 'required',
             'image' => 'required|image',
-            'category_id' => 'required',
+            'category' => 'required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -62,6 +63,7 @@ class EventController extends Controller
 
         Event::create([
             'title' => $request->title,
+            'slug' => Str::slug($request->title),
             'location' => $request->location,
             'date' => $request->date,
             'time' => $request->time,
@@ -71,7 +73,7 @@ class EventController extends Controller
             'reservation_type' => $request->reservation_type,
             'image' => $picturePath,
             'creator' => $user,
-            'category_id' => $request->category_id,
+            'category' => $request->category,
         ]);
 
         return redirect('/evento');

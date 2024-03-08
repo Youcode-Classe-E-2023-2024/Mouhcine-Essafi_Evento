@@ -102,7 +102,7 @@
     </nav>
 
 
-    <div class="container mx-auto flex flex-wrap py-6 text-white">
+    {{-- <div class="container mx-auto flex flex-wrap py-6 text-white">
         <!-- Posts Section -->
         <div class="max-w-screen-xl p-5 mx-auto dark:bg-gray-800 dark:text-gray-100">
             <div class="grid grid-cols-1 gap-5 lg:grid-cols-4 sm:grid-cols-2">
@@ -160,7 +160,52 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+    {{-- <div class="container mx-auto flex flex-wrap py-6 text-white">
+        <!-- Posts Section -->
+        <div class="max-w-screen-xl p-5 mx-auto dark:bg-gray-800 dark:text-gray-100">
+            <div class="grid grid-cols-1 gap-5 lg:grid-cols-4 sm:grid-cols-2">
+                @foreach($events as $event)
+                <div class="relative flex items-end justify-start w-full text-left bg-center bg-cover h-96 dark:bg-gray-500" style="background-image: url('{{ $event->image }}');">
+                    <div class="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b dark:via-transparent dark:from-gray-900 dark:to-gray-900"></div>
+                    <div class="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
+                        <a style="background-color: cornflowerblue" rel="noopener noreferrer" href="#" class="px-3 py-2 text-xs font-semibold tracki uppercase dark:text-gray-100 bgundefined">{{ $event->category }}</a>
+                        <div class="flex flex-col justify-start text-center dark:text-gray-100">
+                            <span class="text-3xl font-semibold leadi tracki">{{ \Carbon\Carbon::parse($event->date)->format('j') }}</span>
+                            <span class="leadi uppercase">{{ \Carbon\Carbon::parse($event->date)->format('F') }}</span>
+                        </div>
+                    </div>
+                    <h2 class="z-10 p-5">
+                        <a style="font-size: x-large" rel="noopener noreferrer" href="#" class="font-medium text-md hover:underline dark:text-gray-100">{{ $event->title }}</a>
+                    </h2>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div> --}}
+    <div class="container mx-auto flex flex-wrap py-6 text-white">
+        <!-- Posts Section -->
+        <div class="max-w-screen-xl p-5 mx-auto dark:bg-gray-800 dark:text-gray-100">
+            <div class="grid grid-cols-1 gap-5 lg:grid-cols-4 sm:grid-cols-2">
+                @foreach($events as $event)
+                <button type="submit" class="relative flex items-end justify-start w-full text-left bg-center bg-cover h-96 dark:bg-gray-500" style="background-image: url('{{ $event->image }}');">
+                    <div class="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b dark:via-transparent dark:from-gray-900 dark:to-gray-900"></div>
+                    <div class="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
+                        <a style="background-color: cornflowerblue" rel="noopener noreferrer" href="#" class="px-3 py-2 text-xs font-semibold tracki uppercase dark:text-gray-100 bgundefined">{{ $event->category }}</a>
+                        <div class="flex flex-col justify-start text-center dark:text-gray-100">
+                            <span class="text-3xl font-semibold leadi tracki">{{ \Carbon\Carbon::parse($event->date)->format('j') }}</span>
+                            <span class="leadi uppercase">{{ \Carbon\Carbon::parse($event->date)->format('F') }}</span>
+                        </div>
+                    </div>
+                    <h2 class="z-10 p-5">
+                        <a style="font-size: x-large" rel="noopener noreferrer" href="#" class="font-medium text-md hover:underline dark:text-gray-100">{{ $event->title }}</a>
+                    </h2>
+                </button>
+                @endforeach
+            </div>
+        </div>
     </div>
+    
 
     <footer class="w-full border-t bg-white pb-12">
         <div class="w-full container mx-auto flex flex-col items-center">

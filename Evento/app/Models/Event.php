@@ -19,6 +19,8 @@ class Event extends Model
         'reservation_type',
         'image',
         'creator',
-        'category_id'
+        'category',
+        'slug',
+        'status'
     ];
 }

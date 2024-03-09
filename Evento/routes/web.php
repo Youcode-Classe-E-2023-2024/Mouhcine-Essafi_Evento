@@ -40,8 +40,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/formEvent', [EventController::class, 'showForm'])->name('formEvent');
-Route::get('/evento', [EventController::class, 'AllEvents'])->name('evento');
+Route::get('/evento', [EventController::class, 'AllEvents'])->name('AllEvento');
 Route::post('/evento', [EventController::class, 'store'])->name('addEvent');
+Route::get('/detailsEvent/{event_slug}', [EventController::class, 'showEvent'])->name('showEvent');
+Route::get('/evento/{category}', [EventController::class, 'EventsWithCategory'])->name('EventsWithCategory');
 
 // Profile routes
 Route::middleware(['auth'])->group(function () {

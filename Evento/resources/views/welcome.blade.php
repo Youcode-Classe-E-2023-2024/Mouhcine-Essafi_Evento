@@ -34,7 +34,7 @@
                     <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Shop</a></li>
                     @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ route('evento')}}" class="hover:text-gray-200 hover:underline px-4">Evento</a></li>
+                        <li><a href="{{ route('AllEvento')}}" class="hover:text-gray-200 hover:underline px-4">Evento</a></li>
                         <li><a href="{{ url('/dashboard') }}" class="hover:text-gray-200 hover:underline px-4" >Dashboard</a></li>
                         @else
                         <li><a href="{{ route('login') }}" class="hover:text-gray-200 hover:underline px-4">Log in</a></li>

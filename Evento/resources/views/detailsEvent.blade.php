@@ -98,35 +98,68 @@
     </nav>
 
 
-    <div class="container mx-auto flex flex-wrap py-6 text-white">
+    <div class="container mx-auto flex flex-wrap py-6 text-black">
         <!-- Posts Section -->
-        <div class="max-w-screen-xl p-5 mx-auto dark:bg-gray-800 dark:text-gray-100">
-            @if ($events->isEmpty())
-            <p class="text-center text-gray-500 mt-4">No events found.</p>
-            @else
-            <div class="grid grid-cols-1 gap-5 lg:grid-cols-4 sm:grid-cols-2">
-                @foreach($events as $event)
-                <form action="{{route('showEvent', ['event_slug' => $event->slug])}}" method="GET">
-                    <button type="submit" class="relative flex items-end justify-start w-full text-left bg-center bg-cover h-96 dark:bg-gray-500" style="background-image: url('{{ $event->image }}');">
-                        <div class="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b dark:via-transparent dark:from-gray-900 dark:to-gray-900"></div>
-                        <div class="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
-                            <a style="background-color: cornflowerblue" rel="noopener noreferrer" href="#" class="px-3 py-2 text-xs font-semibold tracki uppercase dark:text-gray-100 bgundefined">{{ $event->category }}</a>
-                            <div class="flex flex-col justify-start text-center dark:text-gray-100">
-                                <span class="text-3xl font-semibold leadi tracki">{{ \Carbon\Carbon::parse($event->date)->format('j') }}</span>
-                                <span class="leadi uppercase">{{ \Carbon\Carbon::parse($event->date)->format('F') }}</span>
+        <main class="mx-auto max-w-6xl px-4 py-8">
+            <div class="bg-white rounded-lg shadow-lg">
+                <div class="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
+                    <div class="w-full lg:w-1/2 lg:pr-8 mb-8 lg:mb-0">
+                        <img class="rounded-lg shadow-lg" src="{{$event->image}}" alt="Concert Image">
+                    </div>
+                    <div class="w-full lg:w-1/2 lg:pl-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h1 class="text-4xl font-bold">{{$event->title}}</h1>
+                            <div class="relative">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white cursor-pointer menuIcon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M12 6h0m0 6h0m0 6h0"/>
+                                </svg>
                             </div>
                         </div>
-                        <h2 class="z-10 p-5">
-                            <a style="font-size: x-large" rel="noopener noreferrer" href="#" class="font-medium text-md hover:underline dark:text-gray-100">{{ $event->title }}</a>
-                        </h2>
-                    </button>
-                </form>
-                @endforeach
+                        <div class="mb-6">
+                            <p class="text-xl font-bold">Date:</p>
+                            <p class="text-lg">{{ \Carbon\Carbon::parse($event->date)->format('l, F jS \a\t h:i A') }}</p>
+                        </div>
+                        <div class="mb-6">
+                            <p class="text-xl font-bold">Location:</p>
+                            <p class="text-lg flex items-center">
+                                <svg class="w-6 h-6 text-black dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M12 2a8 8 0 0 1 6.6 12.6l-.1.1-.6.7-5.1 6.2a1 1 0 0 1-1.6 0L6 15.3l-.3-.4-.2-.2v-.2A8 8 0 0 1 11.8 2Zm3 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="ml-2">{{$event->location}}</span>
+                            </p>
+                        </div>
+                        <div class="mb-6">
+                            <p class="text-xl font-bold">Tickets:</p>
+                            <p class="text-lg">Place disponible: {{$event->nbr_place}} place</p>
+                            <p class="text-lg">Price: {{$event->price}} DH</p>
+                        </div>
+                        <div class="flex space-x-5">
+                            <form action="/deleteEvent/{{$event->id}}" method="post">
+                                @csrf
+                                <button class=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Buy Tickets</button>
+                            </form>
+                        <form action="/deleteEvent/{{$event->id}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete Event</button>
+                        </form>
+                        <form action="/deleteEvent/{{$event->id}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class=" bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Update Event</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mx-auto px-4 py-8">
+                    <h2 class="font-bold text-2xl mb-4">Event Description</h2>
+                    <p class="text-lg text-justify">{{$event->description}}</p>
+                </div>
             </div>
-            @endif
-        </div>
+        </main>
+        
     </div>
-
+    
 
     <footer class="w-full border-t bg-white pb-12">
         <div class="w-full container mx-auto flex flex-col items-center">
@@ -139,33 +172,6 @@
             <div class="uppercase pb-6">&copy; myblog.com</div>
         </div>
     </footer>
-
-    <script>
-        function getCarouselData() {
-            return {
-                currentIndex: 0,
-                images: [
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=1',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=2',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=3',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=4',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=5',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=6',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=7',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=8',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=9',
-                ],
-                increment() {
-                    this.currentIndex = this.currentIndex === this.images.length - 6 ? 0 : this.currentIndex + 1;
-                },
-                decrement() {
-                    this.currentIndex = this.currentIndex === this.images.length - 6 ? 0 : this.currentIndex - 1;
-                },
-            }
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
 </body>
 
 </html>

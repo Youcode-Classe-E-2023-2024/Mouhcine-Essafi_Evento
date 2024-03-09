@@ -25,13 +25,22 @@ class EventController extends Controller
     public function AllEvents()
     {
         $events = Event::all();
-        return view('organisateur.evento', compact('events'));
+        $categories = Category::all();
+        return view('organisateur.evento', compact('events', 'categories'));
     }
 
-    public function ShowEvent()
+    public function EventsWithCategory($category)
     {
-        $events = Event::all();
-        return view('organiser.allEvents', compact('events'));
+        $events = Event::where('category', $category)->get();
+        $categories = Category::all();
+        return view('organisateur.evento', compact('events', 'categories'));
+    }
+
+    public function showEvent($event_slug)
+    {
+        $event = Event::where('slug', $event_slug)->first();
+        $categories = Category::all();
+        return view('detailsEvent', compact('event', 'categories'));
     }
 
     /**

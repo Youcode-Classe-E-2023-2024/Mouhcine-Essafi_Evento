@@ -39,7 +39,13 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/dashboard/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });
 
-Route::get('/formEvent', [EventController::class, 'showForm'])->name('formEvent');
+Route::get('buy_ticket', [EventController::class, 'showFormAdd'])->name('buy_ticket');
+Route::get('delete_event/{event_id}', [EventController::class, 'deleteEvent'])->name('delete_event');
+Route::post('Update_event', [EventController::class, 'updateEvent'])->name('update_event');
+Route::get('update_event/{event_id}', [EventController::class, 'showFormUpdate'])->name('formUpdateEvent');
+
+
+Route::get('/AddEvent', [EventController::class, 'showFormAdd'])->name('formAddEvent');
 Route::get('/evento', [EventController::class, 'AllEvents'])->name('AllEvento');
 Route::post('/evento', [EventController::class, 'store'])->name('addEvent');
 Route::get('/detailsEvent/{event_slug}', [EventController::class, 'showEvent'])->name('showEvent');

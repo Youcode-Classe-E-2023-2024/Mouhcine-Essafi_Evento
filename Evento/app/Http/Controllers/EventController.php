@@ -14,12 +14,21 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function showForm()
+    public function showFormAdd()
     {
         $content = file_get_contents('https://raw.githubusercontent.com/alaouy/sql-moroccan-cities/master/json/ville.json');
         $data = json_decode($content);
         $categories = Category::all();
-        return view('organisateur.formEvent', compact('data', 'categories'));
+        return view('organisateur.formAddEvent', compact('data', 'categories'));
+    }
+
+    public function showFormUpdate($id)
+    {
+        $content = file_get_contents('https://raw.githubusercontent.com/alaouy/sql-moroccan-cities/master/json/ville.json');
+        $data = json_decode($content);
+        $categories = Category::all();
+        $event = Event::find($id);
+        return view('organisateur.formUpdateEvent', compact('data', 'categories', 'event'));
     }
 
     public function AllEvents()
@@ -51,15 +60,15 @@ class EventController extends Controller
         $user = Auth::id();
 
         $request->validate([
-            'title' => 'required',
-            'location' => 'required',
-            'price' => 'required',
-            'date' => 'required',
+            'title' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'date' => 'required|date',
             'time' => 'required',
-            'description' => 'required',
-            'reservation_type' => 'required',
-            'image' => 'required|image',
-            'category' => 'required',
+            'price' => 'required|numeric',
+            'nbr_place' => 'required|integer',
+            'description' => 'nullable',
+            'reservation_type' => 'required|in:manuel,auto',
+            'category' => 'required|string|max:255',
         ]);
 
         if ($request->hasFile('image')) {
@@ -104,46 +113,53 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateEvent(Request $request, $id)
+    public function updateEvent(Request $request)
     {
-        $user = Auth::id();
-        $event = Event::findOrFail($id);
-
-        $request->validate([
-            'title' => 'required',
-            'location' => 'required',
-            'price' => 'required',
-            'date' => 'required',
+        // Validate the incoming request
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'date' => 'required|date',
             'time' => 'required',
-            'description' => 'required',
-            'reservation_type' => 'required',
-            'image' => 'required',
+            'price' => 'required|numeric',
+            'nbr_place' => 'required|integer',
+            'description' => 'nullable|string',
+            'reservation_type' => 'required|in:manuel,auto',
+            'category' => 'required|string|max:255',
         ]);
 
+        $event = Event::find($request->event_id);
 
-        $event->title = $request['title'];
-        $event->location = $request['location'];
-        $event->date = $request['date'];
-        $event->time = $request['time'];
-        $event->price = $request['price'];
-        $event->nbr_place = $request['nbr_place'];
-        $event->description = $request['description'];
-        $event->reservation_type = $request['reservation_type'];
-        $event->image = $request['image'];
-        $event->creator = $user;
+        $event->title = $validatedData['title'];
+        $event->location = $validatedData['location'];
+        $event->date = $validatedData['date'];
+        $event->time = $validatedData['time'];
+        $event->price = $validatedData['price'];
+        $event->nbr_place = $validatedData['nbr_place'];
+        $event->description = $validatedData['description'];
+        $event->reservation_type = $validatedData['reservation_type'];
+        $event->category = $validatedData['category'];
+        $event->status = 'inactive';
+
+        // Handle image upload if provided
+        if ($request->hasFile('image')) {
+            // Process image upload and update event's image field
+            $imagePath = $request->file('image')->store('events', 'public');
+            $event->image = $imagePath;
+        }
 
         $event->save();
-        return redirect('/allEvents');
+        return redirect('/evento')->with('success', 'Event updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function deleteEvent(string $id)
+    public function deleteEvent($id)
     {
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->back();
+        return redirect('/evento')->with('success', 'Event deleted successfully');;
     }
 }

@@ -34,7 +34,7 @@
                     <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Shop</a></li>
                     @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ route('evento')}}" class="hover:text-gray-200 hover:underline px-4">Evento</a></li>
+                        <li><a href="{{ route('AllEvento')}}" class="hover:text-gray-200 hover:underline px-4">Evento</a></li>
                         <li><a href="{{ url('/dashboard') }}" class="hover:text-gray-200 hover:underline px-4" >Dashboard</a></li>
                         @else
                         <li><a href="{{ route('login') }}" class="hover:text-gray-200 hover:underline px-4">Log in</a></li>
@@ -293,31 +293,6 @@
             <div class="uppercase pb-6">&copy; myblog.com</div>
         </div>
     </footer>
-
-    <script>
-        function getCarouselData() {
-            return {
-                currentIndex: 0,
-                images: [
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=1',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=2',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=3',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=4',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=5',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=6',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=7',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=8',
-                    'https://source.unsplash.com/collection/1346951/800x800?sig=9',
-                ],
-                increment() {
-                    this.currentIndex = this.currentIndex === this.images.length - 6 ? 0 : this.currentIndex + 1;
-                },
-                decrement() {
-                    this.currentIndex = this.currentIndex === this.images.length - 6 ? 0 : this.currentIndex - 1;
-                },
-            }
-        }
-    </script>
 
 </body>
 

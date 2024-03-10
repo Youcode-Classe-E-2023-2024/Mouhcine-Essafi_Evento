@@ -89,7 +89,7 @@
                 <a href="{{route('EventsWithCategory',['category' => $category->name])}}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">{{$category->name}}</a>
                 @endforeach
             </div>
-            <form action="{{route('formEvent')}}" method="GET">
+            <form action="{{route('formAddEvent')}}" method="GET">
                 <button type="submit" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                     Add Event
                 </button>
@@ -134,19 +134,17 @@
                             <p class="text-lg">Price: {{$event->price}} DH</p>
                         </div>
                         <div class="flex space-x-5">
-                            <form action="/deleteEvent/{{$event->id}}" method="post">
+                            <form action="{{route('buy_ticket',['event_id' => $event->id])}}" method="get">
                                 @csrf
-                                <button class=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Buy Tickets</button>
+                                <button type="submit" class=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Buy Tickets</button>
                             </form>
-                        <form action="/deleteEvent/{{$event->id}}" method="post">
+                        <form action="{{route('delete_event',['event_id' => $event->id])}}" method="get">
                             @csrf
-                            @method('delete')
-                            <button class=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete Event</button>
+                            <button type="submit" class=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Delete Event</button>
                         </form>
-                        <form action="/deleteEvent/{{$event->id}}" method="post">
+                        <form action="{{route('formUpdateEvent',['event_id' => $event->id])}}" method="get">
                             @csrf
-                            @method('delete')
-                            <button class=" bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Update Event</button>
+                            <button type="submit" class=" bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Update Event</button>
                         </form>
                         </div>
                     </div>

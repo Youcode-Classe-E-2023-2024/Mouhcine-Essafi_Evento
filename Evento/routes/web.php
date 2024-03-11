@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +28,8 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard.dashboard');
     })->name('dashboard');
 
-    Route::get('/dashboard/organisateurs', function () {
-        return view('dashboard.organisateurs');
-    })->name('dashboard.organisateurs');
-
+    Route::get('/dashboard/users', [RoleController::class, 'index'])->name('Users');
+    Route::post('/dashboard/users', [RoleController::class, 'assign'])->name('assign_role');
     Route::get('/dashboard/events', [EventController::class, 'getEventdeclined'])->name('events');
     Route::post('/dashboard/events/{event_id}', [EventController::class, 'approveEvent'])->name('approve_events');
 

@@ -7,7 +7,6 @@
     <title>Tailwind Blog Template</title>
     <meta name="author" content="David Grzyb">
     <meta name="description" content="">
-
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
@@ -34,15 +33,15 @@
                     <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Shop</a></li>
                     @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ route('AllEvento')}}" class="hover:text-gray-200 hover:underline px-4">Evento</a></li>
-                        <li><a href="{{ url('/dashboard') }}" class="hover:text-gray-200 hover:underline px-4" >Dashboard</a></li>
-                        @else
-                        <li><a href="{{ route('login') }}" class="hover:text-gray-200 hover:underline px-4">Log in</a></li>
+                    <li><a href="{{ route('AllEvento')}}" class="hover:text-gray-200 hover:underline px-4">Evento</a></li>
+                    <li><a href="{{ url('/dashboard') }}" class="hover:text-gray-200 hover:underline px-4">Dashboard</a></li>
+                    @else
+                    <li><a href="{{ route('login') }}" class="hover:text-gray-200 hover:underline px-4">Log in</a></li>
 
-                        @if (Route::has('register'))
-                        <li><a href="{{ route('register') }}" class="hover:text-gray-200 hover:underline px-4">Register</a></li>
-                        @endif
-                        @endauth
+                    @if (Route::has('register'))
+                    <li><a href="{{ route('register') }}" class="hover:text-gray-200 hover:underline px-4">Register</a></li>
+                    @endif
+                    @endauth
                     @endif
                 </ul>
             </nav>
@@ -86,16 +85,12 @@
         </div>
         <div :class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
             <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Technology</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Automotive</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Finance</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Politics</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Culture</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Sports</a>
+                @foreach ($categories as $category)
+                <a href="{{route('EventsWithCategory',['category' => $category->name])}}" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">{{$category->name}}</a>
+                @endforeach
             </div>
         </div>
     </nav>
-
 
     <div class="container mx-auto flex flex-wrap py-6 text-white">
 

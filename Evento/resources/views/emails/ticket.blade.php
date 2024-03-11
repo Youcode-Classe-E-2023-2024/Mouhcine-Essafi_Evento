@@ -49,7 +49,6 @@
             - Date : {{ $event->date }}
             - Lieu : {{ $event->location }}
         </p>
-        {{--        <a href="http://127.0.0.1:8000/dashboard" target="_blank">Consulter l'événement</>--}}
     </div>
 
     <p>

@@ -24,7 +24,6 @@
                         <tr>
                             <td class="py-4 px-6 border-b border-gray-200">{{$user->name}}</td>
                             <td class="py-4 px-6 border-b border-gray-200 truncate">{{$user->email}}</td>
-                            {{-- @dd($user->roles); --}}
                             <th class="py-4 px-6 border-b border-gray-200 uppercase">@foreach ($user->roles as $role){{ $role->name }}@endforeach</th>
                             <td class="py-4 px-6 border-b border-gray-200">
                                     <form action="{{ route('assign_role') }}" method="POST">

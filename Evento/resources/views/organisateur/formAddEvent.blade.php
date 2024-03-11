@@ -31,7 +31,7 @@
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
             <nav>
                 <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Shop</a></li>
+                    <li><a href="{{ route('welcome')}}" class="hover:text-gray-200 hover:underline px-4">Home</a></li>
                     @if (Route::has('login'))
                     @auth
                         <li><a href="{{ route('AllEvento')}}" class="hover:text-gray-200 hover:underline px-4">Evento</a></li>

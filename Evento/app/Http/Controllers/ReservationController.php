@@ -79,7 +79,7 @@ class ReservationController extends Controller
     {
         $events = Reserver::where('status', 'En attente')->get();
 
-        return view('organiser.reservations', compact('events'));
+        return view('organisateur.reservations', compact('events'));
     }
 
     public function approveReservation($id)

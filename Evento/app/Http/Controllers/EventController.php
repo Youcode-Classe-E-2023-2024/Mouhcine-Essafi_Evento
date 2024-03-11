@@ -31,6 +31,13 @@ class EventController extends Controller
         return view('organisateur.formUpdateEvent', compact('data', 'categories', 'event'));
     }
 
+    public function AllEventsWelcome(){
+        $eventsTop = Event::where('status', 'Public')->limit(5)->get();
+        $events = Event::where('status', 'Public')->get();
+        $categories = Category::all();
+        return view('welcome', compact('events', 'categories', 'eventsTop'));
+    }
+
     public function AllEvents()
     {
         $events = Event::where('status', 'Public')->get();

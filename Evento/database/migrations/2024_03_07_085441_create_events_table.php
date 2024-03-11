@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('image');
             $table->unsignedBigInteger('creator');
             $table->string('category');
-            $table->enum('status' , ['active','inactive'])->default('active');
+            $table->enum('status' , ['Public','Decline'])->default('Decline');
 
             $table->foreign('creator')->references('id')->on('users')->onDelete('cascade');
 

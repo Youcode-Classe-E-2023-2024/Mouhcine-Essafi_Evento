@@ -134,7 +134,7 @@
                             <p class="text-lg">Price: {{$event->price}} DH</p>
                         </div>
                         <div class="flex space-x-5">
-                            <form action="{{route('buy_ticket',['event_id' => $event->id])}}" method="get">
+                            <form action="/paiement/{{$event->id}}" method="post">
                                 @csrf
                                 <button type="submit" class=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Buy Tickets</button>
                             </form>

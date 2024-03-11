@@ -33,14 +33,14 @@ class EventController extends Controller
 
     public function AllEvents()
     {
-        $events = Event::all();
+        $events = Event::where('status', 'Public')->get();
         $categories = Category::all();
         return view('organisateur.evento', compact('events', 'categories'));
     }
 
     public function EventsWithCategory($category)
     {
-        $events = Event::where('category', $category)->get();
+        $events = Event::where('category', $category)->where('status', 'Public')->get();
         $categories = Category::all();
         return view('organisateur.evento', compact('events', 'categories'));
     }
@@ -139,11 +139,9 @@ class EventController extends Controller
         $event->description = $validatedData['description'];
         $event->reservation_type = $validatedData['reservation_type'];
         $event->category = $validatedData['category'];
-        $event->status = 'inactive';
+        $event->status = 'Decline';
 
-        // Handle image upload if provided
         if ($request->hasFile('image')) {
-            // Process image upload and update event's image field
             $imagePath = $request->file('image')->store('events', 'public');
             $event->image = $imagePath;
         }
@@ -161,5 +159,29 @@ class EventController extends Controller
         $event->delete();
 
         return redirect('/evento')->with('success', 'Event deleted successfully');;
+    }
+
+    public function getEventdeclined()
+    {
+        $events = Event::where('status', 'Decline')->get();
+        return view('dashboard.events', compact('events'));
+    }
+
+    public function approveEvent($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->status = 'Public';
+        $event->save();
+
+        return redirect()->back();
+    }
+
+    public function declineEvent($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->status = 'Decline';
+        $event->save();
+
+        return redirect()->back();
     }
 }

@@ -12,6 +12,9 @@
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Event Approvals</h2>
                     </div>
+                    <form action="{{route('approve_all_events')}}" method="POST">
+                        <button class="" type="submit">approve_all_events</button>
+                    </form>
                     @foreach($events as $event)
                     <div class="bg-gray-100 p-4 rounded-lg mb-4 shadow-sm">
                         <div class="flex justify-between items-center">

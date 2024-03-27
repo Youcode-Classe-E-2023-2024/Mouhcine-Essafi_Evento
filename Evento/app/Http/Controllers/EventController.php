@@ -174,6 +174,13 @@ class EventController extends Controller
         return view('dashboard.events', compact('events'));
     }
 
+    public function approve_all_events(){
+        $event = Event::where('status', 'Decline')->get();
+        foreach ($event as $event){
+            $event->status = 'Public';
+        }
+        return redirect()->back();
+    }
     public function approveEvent($id)
     {
         $event = Event::findOrFail($id);

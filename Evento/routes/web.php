@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard/categories/stroe', [CategoryController::class, 'store'])->name('category.store');
     Route::delete('/dashboard/categories/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });
+Route::get('/dashboard/approve', [EventController::class, 'approve_all_events'])->name('approve_all_events');
 
 Route::post('/paiement/{event_id}', [ReservationController::class, 'paiement']);
 Route::get('/paiement/{event_id}', [ReservationController::class, 'paiement']);
